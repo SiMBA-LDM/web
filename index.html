@@ -1,0 +1,111 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+  integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <meta name="theme-color" content="#563d7c">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
+  
+  <style>
+      table {
+          width: 100%;
+          border-collapse: collapse;
+          margin: 20px 0;
+      }
+      td {
+          border: 1px solid #ccc;
+          padding: 10px;
+          text-align: center;
+      }
+  </style>
+</head>
+
+<body bgcolor="#FFFFFF" link="#000000" vlink="#000000" alink="#000000">
+
+<div class="text-center">
+  <br>
+  <div class="text-wrap" width="200px">
+  <font face="helvetica , ariel, &#39;sans serif&#39;" size="6">
+    <b>SIMBA-LDM:</br> LOW-COST TRAINING FOR TEXT-TO-MUSIC VIA SIMBA AND DIFFUSION</b><br><br>
+  </font>
+  </div>
+
+  <p style="font-size: 1.3em; margin-bottom: 0;">
+      anonymous
+  </p>
+  <p style="margin-top: 0;">
+      anonymous@example.com<br>
+  </p>
+
+      <div class="container mt-4" style="max-width: 1000px;">
+      <div class="container">
+  
+
+      <div class="container mt-4 " style="max-width: 950px;">
+              <div class="container">
+                  <div class="section">
+                  <!-- # Show video -->
+                  <!-- <div class="embed-responsive embed-responsive-16by9">
+                      <iframe width="560" height="315" src="https://www.youtube.com/embed/QVr-S-DyccU?si=zrU456y3XL6FFp51" frameborder="0"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowfullscreen></iframe> -->
+                  </div>
+                  <br>
+                  <!-- Show Abstract -->
+                  <h1 class="text-justify">Abstract</h1>
+                  <hr>
+                  <p class="pr-5 pl-5 text-justify">
+                      Text-to-music (TTM) generation models have garnered significant interest, 
+                      yet their training from scratch requires extensive GPU resources and large datasets. 
+                      While finetuning leverages pretrained weights, it remains limited by the base model's inherent behavior. 
+                      To make TTM training more accessible, we introduce a two-stage framework that leverages the coarse-to-fine structure of audio codec representations.
+                      The first stage constructs an autoregressive music language model (LM) using SiMBA
+                      ---a state-space model that outperforms Transformer architectures in efficiency---to generate tokens for the coarse codec layers. 
+                      The second stage uses a diffusion model to generate finer-layer tokens conditioned on the coarse tokens, 
+                      simplifying the LM's task and enabling the second stage to act as a reusable vocoder. 
+                      This design enhances flexibility, allowing experimentation with diverse LM architectures or token conditioning methods. 
+                      Trained on a public dataset of 54,894 instrumental track-text pairs, our SiMBA LM with approximately 280M parameters outperforms 
+                      its Transformer counterpart in both training efficiency and objective metrics. 
+                      Moreover, our user study shows that the proposed model achieves competitive music generation quality with the official 
+                      MusicGen-Small model while using only 9% of its FLOPs, making training feasible on a single consumer-grade GPU.
+                  </p>
+              </div><br>
+
+
+      <div class="Demo Audio">
+          <h1>Examples (Cherry-picked)</h1>
+      </div>
+
+      <hr>
+
+      <div class="section text-justify">
+          <h1>Examples (Random)</h1>
+      </div>
+
+      <hr>
+      <footer>
+          <div class="container">
+              <div class="text-center">
+              </div>
+          </div>
+      </footer>
+
+      </div>
+</div>
+
+
+<script>
+  // Add JavaScript to toggle the collapsible content
+  var buttons = document.querySelectorAll(".collapsible-button");
+  buttons.forEach(function (button) {
+      button.addEventListener("click", function () {
+          var content = this.nextElementSibling;
+          if (content.style.display === "block") {
+              content.style.display = "none";
+          } else {
+              content.style.display = "block";
+          }
+      });
+  });
+</script>
+
+</body>
+</html>
