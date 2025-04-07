@@ -1,7 +1,7 @@
 <html>
 
 <head>
-	<title>Music ControlNet</title>
+	<title>SiMBA-LDM</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
     integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <meta name="theme-color" content="#563d7c">
@@ -18,6 +18,14 @@
             border: 1px solid #ccc;
             padding: 10px;
             text-align: center;
+        }
+        progress {
+            width: 300px;
+            height: 20px;
+            margin-top: 10px;
+        }
+        button {
+            margin: 5px;
         }
     </style>
 </head>
@@ -127,25 +135,25 @@
                                 </td>
                             </tr>
                                 <tr>
-                                    <audio id="dac_1_o" src="dac/1/ori.wav"></audio>
-                                    <audio id="dac_1_1" src="dac/1/1.wav"></audio>
-                                    <audio id="dac_1_3" src="dac/1/3.wav"></audio>
-                                    <audio id="dac_1_6" src="dac/1/6.wav"></audio>
-                                    <audio id="dac_1_9" src="dac/1/9.wav"></audio>
-                                    <td>
-                                        <button onclick="playAudio('dac_1_o')">Play</button>
+                                    <td colspan="6">
+                                        <button onclick="playAudio('dac/1/ori.wav')">Play</button>
+                                        <!-- 進度條 -->
+                                        <div>
+                                            <progress id="progressBar" value="0" max="100"></progress>
+                                            <span id="timeDisplay">0:00 / 0:00</span> <!-- 顯示當前時間與總時間 -->
+                                        </div>
                                     </td>
-                                    <td>
-                                        <button onclick="playAudio('dac_1_1')">Play</button>
+                                    <td colspan="6">
+                                        <button onclick="playAudio('dac/1/1.wav')">Play</button>
                                     </td>
-                                    <td>
-                                        <button onclick="playAudio('dac_1_3')">Play</button>
+                                    <td colspan="6">
+                                        <button onclick="playAudio('dac/1/3.wav')">Play</button>
                                     </td>
-                                    <td>
-                                        <button onclick="playAudio('dac_1_6')">Play</button>
+                                    <td colspan="6">
+                                        <button onclick="playAudio('dac/1/6.wav')">Play</button>
                                     </td>
-                                    <td>
-                                        <button onclick="playAudio('dac_1_9')">Play</button>
+                                    <td colspan="6">
+                                        <button onclick="playAudio('dac/1/9.wav')">Play</button>
                                     </td>
                                 </tr>
                                 <!-- <tr>
@@ -327,24 +335,58 @@
         });
 
         // Play Audio
-        let currentAudio = null; // 追蹤當前播放的音檔
+        // let currentAudio = null; // 追蹤當前播放的音檔
 
-        function playAudio(audioId) {
-            // 取得所有 audio 元素
-            const audios = document.getElementsByTagName('audio');
+        // function playAudio(audioId) {
+        //     // 取得所有 audio 元素
+        //     const audios = document.getElementsByTagName('audio');
             
-            // 暫停並重置所有正在播放的音檔
-            for (let audio of audios) {
-                if (audio !== document.getElementById(audioId)) {
-                    audio.pause();
-                    audio.currentTime = 0; // 可選：將播放進度重置到開始
-                }
-            }
+        //     // 暫停並重置所有正在播放的音檔
+        //     for (let audio of audios) {
+        //         if (audio !== document.getElementById(audioId)) {
+        //             audio.pause();
+        //             audio.currentTime = 0; // 可選：將播放進度重置到開始
+        //         }
+        //     }
 
-            // 播放新的音檔
-            const newAudio = document.getElementById(audioId);
-            newAudio.play();
-            currentAudio = newAudio;
+        //     // 播放新的音檔
+        //     const newAudio = document.getElementById(audioId);
+        //     newAudio.play();
+        //     currentAudio = newAudio;
+        // }
+        const audioPlayer = new Audio(); // 創建單一 Audio 物件
+        const progressBar = document.getElementById('progressBar');
+        const timeDisplay = document.getElementById('timeDisplay');
+
+        // 播放音檔的函數
+        function playAudio(src) {
+            audioPlayer.pause(); // 暫停當前播放
+            audioPlayer.src = src; // 設置新音檔來源
+            audioPlayer.play(); // 播放新音檔
+            updateProgress(); // 開始更新進度條
+        }
+
+        // 更新進度條和時間顯示
+        function updateProgress() {
+            audioPlayer.addEventListener('timeupdate', () => {
+                const currentTime = audioPlayer.currentTime;
+                const duration = audioPlayer.duration || 0; // 如果還沒載入完成，預設為 0
+                const progress = (currentTime / duration) * 100 || 0; // 計算百分比
+                progressBar.value = progress;
+
+                // 格式化時間（分:秒）
+                const currentMins = Math.floor(currentTime / 60);
+                const currentSecs = Math.floor(currentTime % 60).toString().padStart(2, '0');
+                const totalMins = Math.floor(duration / 60);
+                const totalSecs = Math.floor(duration % 60).toString().padStart(2, '0');
+
+                timeDisplay.textContent = `${currentMins}:${currentSecs} / ${totalMins}:${totalSecs}`;
+            });
+
+            // 當音檔載入完成時更新總時長
+            audioPlayer.addEventListener('loadedmetadata', () => {
+                progressBar.max = 100;
+            });
         }
     </script>
 
