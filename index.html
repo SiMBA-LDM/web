@@ -369,25 +369,51 @@
         // 更新進度條和時間顯示
         function updateProgress() {
             audioPlayer.addEventListener('timeupdate', () => {
-                const currentTime = audioPlayer.currentTime;
-                const duration = audioPlayer.duration || 0; // 如果還沒載入完成，預設為 0
-                const progress = (currentTime / duration) * 100 || 0; // 計算百分比
-                progressBar.value = progress;
+                if (!progressBar.dragging) { // 只有在不拖動時才自動更新
+                    const currentTime = audioPlayer.currentTime;
+                    const duration = audioPlayer.duration || 0;
+                    const progress = (currentTime / duration) * 100 || 0;
+                    progressBar.value = progress;
 
-                // 格式化時間（分:秒）
-                const currentMins = Math.floor(currentTime / 60);
-                const currentSecs = Math.floor(currentTime % 60).toString().padStart(2, '0');
-                const totalMins = Math.floor(duration / 60);
-                const totalSecs = Math.floor(duration % 60).toString().padStart(2, '0');
-
-                timeDisplay.textContent = `${currentMins}:${currentSecs} / ${totalMins}:${totalSecs}`;
+                    // 格式化時間
+                    const currentMins = Math.floor(currentTime / 60);
+                    const currentSecs = Math.floor(currentTime % 60).toString().padStart(2, '0');
+                    const totalMins = Math.floor(duration / 60);
+                    const totalSecs = Math.floor(duration % 60).toString().padStart(2, '0');
+                    timeDisplay.textContent = `${currentMins}:${currentSecs} / ${totalMins}:${totalSecs}`;
+                }
             });
 
-            // 當音檔載入完成時更新總時長
+            // 當音檔載入完成時更新範圍
             audioPlayer.addEventListener('loadedmetadata', () => {
                 progressBar.max = 100;
             });
         }
+
+        // 拖動進度條時更新播放位置
+        progressBar.addEventListener('input', () => {
+            const duration = audioPlayer.duration || 0;
+            const newTime = (progressBar.value / 100) * duration;
+            audioPlayer.currentTime = newTime; // 跳轉到新位置
+        });
+
+        // 處理拖動開始和結束（避免與自動更新衝突）
+        progressBar.addEventListener('mousedown', () => {
+            progressBar.dragging = true;
+        });
+
+        progressBar.addEventListener('mouseup', () => {
+            progressBar.dragging = false;
+        });
+
+        // 可選：支援觸控設備
+        progressBar.addEventListener('touchstart', () => {
+            progressBar.dragging = true;
+        });
+
+        progressBar.addEventListener('touchend', () => {
+            progressBar.dragging = false;
+        });
     </script>
 
 </body>
