@@ -7,6 +7,7 @@
     <meta name="theme-color" content="#563d7c">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         table {
             width: 100%;
@@ -136,30 +137,31 @@
                             </tr>
                                 <tr>
                                     <td colspan="6">
-                                        <button onclick="playAudio('dac/1/ori.wav')">Play</button>
+                                        <button id="btn1" onclick="toggleAudio('dac/1/ori.wav', this)"><i class="fas fa-play icon"></i></button>
+                                        <!-- <button onclick="playAudio('dac/1/ori.wav')">Play</button> -->
                                         <!-- 進度條 -->
-                                        <div>
-                                            <input type="range" id="progressBar" value="0" min="0" max="100" step="1">
-                                            <span id="timeDisplay">0:00 / 0:00</span>
-                                        </div>
+                                        <!-- <div> -->
+                                        <input type="range" id="progressBar" value="0" min="0" max="100" step="1">
+                                        <span id="timeDisplay">0:00 / 0:00</span>
+                                        <!-- </div> -->
                                     </td>
                                     <td colspan="6">
-                                        <button onclick="playAudio('dac/1/1.wav')">Play</button>
+                                        <button onclick="playAudio('dac/1/1_tokens.wav')">Play</button>
                                         <input type="range" id="progressBar" value="0" min="0" max="100" step="1">
                                         <span id="timeDisplay">0:00 / 0:00</span>
                                     </td>
                                     <td colspan="6">
-                                        <button onclick="playAudio('dac/1/3.wav')">Play</button>
+                                        <button onclick="playAudio('dac/1/3_tokens.wav')">Play</button>
                                         <input type="range" id="progressBar" value="0" min="0" max="100" step="1">
                                         <span id="timeDisplay">0:00 / 0:00</span>
                                     </td>
                                     <td colspan="6">
-                                        <button onclick="playAudio('dac/1/6.wav')">Play</button>
+                                        <button onclick="playAudio('dac/1/6_tokens.wav')">Play</button>
                                         <input type="range" id="progressBar" value="0" min="0" max="100" step="1">
                                         <span id="timeDisplay">0:00 / 0:00</span>
                                     </td>
                                     <td colspan="6">
-                                        <button onclick="playAudio('dac/1/9.wav')">Play</button>
+                                        <button onclick="playAudio('dac/1/9_tokens.wav')">Play</button>
                                         <input type="range" id="progressBar" value="0" min="0" max="100" step="1">
                                         <span id="timeDisplay">0:00 / 0:00</span>
                                     </td>
@@ -362,28 +364,62 @@
         //     newAudio.play();
         //     currentAudio = newAudio;
         // }
-        const audioPlayer = new Audio(); // 創建單一 Audio 物件
+        const audioPlayer = new Audio();
         const progressBar = document.getElementById('progressBar');
         const timeDisplay = document.getElementById('timeDisplay');
+        let currentButton = null;
 
-        // 播放音檔的函數
-        function playAudio(src) {
-            audioPlayer.pause(); // 暫停當前播放
-            audioPlayer.src = src; // 設置新音檔來源
-            audioPlayer.play(); // 播放新音檔
-            updateProgress(); // 開始更新進度條
+        function toggleAudio(src, button) {
+            if (audioPlayer.src !== location.origin + '/' + src) {
+                audioPlayer.pause();
+                audioPlayer.src = src;
+                audioPlayer.play();
+                updateButtonState(button, true);
+                updateProgress();
+            } else {
+                if (audioPlayer.paused) {
+                    audioPlayer.play();
+                    updateButtonState(button, true);
+                } else {
+                    audioPlayer.pause();
+                    updateButtonState(button, false);
+                }
+            }
         }
 
-        // 更新進度條和時間顯示
+        // 更新按鈕狀態（切換圖示）
+        function updateButtonState(button, isPlaying) {
+            // 重置所有按鈕圖示
+            document.querySelectorAll('button').forEach(btn => {
+                const icon = btn.querySelector('i');
+                icon.classList.remove('fa-pause');
+                icon.classList.add('fa-play');
+            });
+            // 更新當前按鈕
+            if (currentButton && currentButton !== button) {
+                const oldIcon = currentButton.querySelector('i');
+                oldIcon.classList.remove('fa-pause');
+                oldIcon.classList.add('fa-play');
+            }
+            currentButton = button;
+            const currentIcon = currentButton.querySelector('i');
+            if (isPlaying) {
+                currentIcon.classList.remove('fa-play');
+                currentIcon.classList.add('fa-pause');
+            } else {
+                currentIcon.classList.remove('fa-pause');
+                currentIcon.classList.add('fa-play');
+            }
+        }
+
         function updateProgress() {
             audioPlayer.addEventListener('timeupdate', () => {
-                if (!progressBar.dragging) { // 只有在不拖動時才自動更新
+                if (!progressBar.dragging) {
                     const currentTime = audioPlayer.currentTime;
                     const duration = audioPlayer.duration || 0;
                     const progress = (currentTime / duration) * 100 || 0;
                     progressBar.value = progress;
 
-                    // 格式化時間
                     const currentMins = Math.floor(currentTime / 60);
                     const currentSecs = Math.floor(currentTime % 60).toString().padStart(2, '0');
                     const totalMins = Math.floor(duration / 60);
@@ -392,20 +428,22 @@
                 }
             });
 
-            // 當音檔載入完成時更新範圍
             audioPlayer.addEventListener('loadedmetadata', () => {
                 progressBar.max = 100;
             });
+
+            audioPlayer.addEventListener('ended', () => {
+                updateButtonState(currentButton, false);
+                progressBar.value = 0;
+            });
         }
 
-        // 拖動進度條時更新播放位置
         progressBar.addEventListener('input', () => {
             const duration = audioPlayer.duration || 0;
             const newTime = (progressBar.value / 100) * duration;
-            audioPlayer.currentTime = newTime; // 跳轉到新位置
+            audioPlayer.currentTime = newTime;
         });
 
-        // 處理拖動開始和結束（避免與自動更新衝突）
         progressBar.addEventListener('mousedown', () => {
             progressBar.dragging = true;
         });
@@ -414,7 +452,6 @@
             progressBar.dragging = false;
         });
 
-        // 可選：支援觸控設備
         progressBar.addEventListener('touchstart', () => {
             progressBar.dragging = true;
         });
