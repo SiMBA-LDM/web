@@ -313,7 +313,7 @@
 
 
     <script>
-    // Add JavaScript to toggle the collapsible content
+        // Add JavaScript to toggle the collapsible content
         var buttons = document.querySelectorAll(".collapsible-button");
         buttons.forEach(function (button) {
             button.addEventListener("click", function () {
@@ -325,6 +325,27 @@
                 }
             });
         });
+
+        // Play Audio
+        let currentAudio = null; // 追蹤當前播放的音檔
+
+        function playAudio(audioId) {
+            // 取得所有 audio 元素
+            const audios = document.getElementsByTagName('audio');
+            
+            // 暫停並重置所有正在播放的音檔
+            for (let audio of audios) {
+                if (audio !== document.getElementById(audioId)) {
+                    audio.pause();
+                    audio.currentTime = 0; // 可選：將播放進度重置到開始
+                }
+            }
+
+            // 播放新的音檔
+            const newAudio = document.getElementById(audioId);
+            newAudio.play();
+            currentAudio = newAudio;
+        }
     </script>
 
 </body>
