@@ -21,7 +21,7 @@
             text-align: center;
         }
         input[type="range"] {
-            width: 300px;
+            width: 150px;
             margin-top: 10px;
         }
         button {
@@ -30,7 +30,7 @@
             font-size: 16px;
         }
         #timeDisplay {
-            margin-left: 10px;
+            margin-left: 5px;
         }
         .icon {
             margin-right: 5px; /* 圖示與文字間距 */
@@ -144,13 +144,13 @@
                             </tr>
                                 <tr>
                                     <td colspan="6">
-                                        <button id="btn1" onclick="toggleAudio('dac/1/ori.wav', this)"><i class="fas fa-play icon"></i></button>
+                                        <button id="btn1" onclick="toggleAudio('dac/1/ori.wav', this)"><i class="fas fa-play icon"> </i></button>
                                         <!-- <button onclick="playAudio('dac/1/ori.wav')">Play</button> -->
                                         <!-- 進度條 -->
-                                        <!-- <div> -->
-                                        <input type="range" id="progressBar" value="0" min="0" max="100" step="1">
-                                        <span id="timeDisplay">0:00 / 0:00</span>
-                                        <!-- </div> -->
+                                        <div>
+                                            <input type="range" id="progressBar" value="0" min="0" max="100" step="1">
+                                            <span id="timeDisplay">0:00 / 0:00</span>
+                                        </div>
                                     </td>
                                     <td colspan="6">
                                         <button onclick="playAudio('dac/1/1_tokens.wav')">Play</button>
