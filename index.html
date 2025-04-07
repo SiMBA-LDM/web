@@ -20,7 +20,7 @@
             padding: 10px;
             text-align: center;
         }
-        input[type="range"] {
+        /* input[type="range"] {
             width: 150px;
             margin-top: 10px;
         }
@@ -33,7 +33,12 @@
             margin-left: 5px;
         }
         .icon {
-            margin-right: 5px; /* 圖示與文字間距 */
+            margin-right: 5px; 圖示與文字間距
+        } */
+        audio {
+            width: 200px; /* 設定播放器的寬度 */
+            height: 50px; /* 設定播放器的高度 */
+            margin: 10px 0; /* 增加間距 */
         }
     </style>
 </head>
@@ -144,37 +149,6 @@
                             </tr>
                                 <tr>
                                     <td colspan="6">
-                                        <button id="btn1" onclick="toggleAudio('dac/1/ori.wav', this)"><i class="fas fa-play icon"> </i></button>
-                                        <!-- <button onclick="playAudio('dac/1/ori.wav')">Play</button> -->
-                                        <!-- 進度條 -->
-                                        <div>
-                                            <input type="range" id="progressBar" value="0" min="0" max="100" step="1">
-                                            <span id="timeDisplay">0:00 / 0:00</span>
-                                        </div>
-                                    </td>
-                                    <td colspan="6">
-                                        <button onclick="playAudio('dac/1/1_tokens.wav')">Play</button>
-                                        <input type="range" id="progressBar" value="0" min="0" max="100" step="1">
-                                        <span id="timeDisplay">0:00 / 0:00</span>
-                                    </td>
-                                    <td colspan="6">
-                                        <button onclick="playAudio('dac/1/3_tokens.wav')">Play</button>
-                                        <input type="range" id="progressBar" value="0" min="0" max="100" step="1">
-                                        <span id="timeDisplay">0:00 / 0:00</span>
-                                    </td>
-                                    <td colspan="6">
-                                        <button onclick="playAudio('dac/1/6_tokens.wav')">Play</button>
-                                        <input type="range" id="progressBar" value="0" min="0" max="100" step="1">
-                                        <span id="timeDisplay">0:00 / 0:00</span>
-                                    </td>
-                                    <td colspan="6">
-                                        <button onclick="playAudio('dac/1/9_tokens.wav')">Play</button>
-                                        <input type="range" id="progressBar" value="0" min="0" max="100" step="1">
-                                        <span id="timeDisplay">0:00 / 0:00</span>
-                                    </td>
-                                </tr>
-                                <!-- <tr>
-                                    <td colspan="6">
                                         <audio controls>
                                             <source src="dac/1/ori.wav" type="audio/mp3">
                                         Your browser does not support the audio element.
@@ -268,7 +242,7 @@
                                         Your browser does not support the audio element.
                                         </audio>
                                     </td>
-                                </tr> -->
+                                </tr>
                         </tbody>
                     </table>
                 </div>
@@ -371,101 +345,21 @@
         //     newAudio.play();
         //     currentAudio = newAudio;
         // }
-        const audioPlayer = new Audio();
-        const progressBar = document.getElementById('progressBar');
-        const timeDisplay = document.getElementById('timeDisplay');
-        let currentButton = null;
+        const audioElements = document.querySelectorAll('audio');
 
-        function toggleAudio(src, button) {
-            if (audioPlayer.src !== location.origin + '/' + src) {
-                audioPlayer.pause();
-                audioPlayer.src = src;
-                audioPlayer.play();
-                updateButtonState(button, true);
-                updateProgress();
-            } else {
-                if (audioPlayer.paused) {
-                    audioPlayer.play();
-                    updateButtonState(button, true);
-                } else {
-                    audioPlayer.pause();
-                    updateButtonState(button, false);
-                }
-            }
-        }
-
-        // 更新按鈕狀態（切換圖示）
-        function updateButtonState(button, isPlaying) {
-            // 重置所有按鈕圖示
-            document.querySelectorAll('button').forEach(btn => {
-                const icon = btn.querySelector('i');
-                icon.classList.remove('fa-pause');
-                icon.classList.add('fa-play');
+        // 為每個 audio 元素添加播放事件監聽器
+        audioElements.forEach(audio => {
+            audio.addEventListener('play', () => {
+                // 當某個音檔開始播放時，暫停其他所有音檔
+                audioElements.forEach(otherAudio => {
+                    if (otherAudio !== audio && !otherAudio.paused) {
+                        otherAudio.pause();
+                        // 可選：otherAudio.currentTime = 0; // 重置其他音檔到開頭
+                    }
+                });
             });
-            // 更新當前按鈕
-            if (currentButton && currentButton !== button) {
-                const oldIcon = currentButton.querySelector('i');
-                oldIcon.classList.remove('fa-pause');
-                oldIcon.classList.add('fa-play');
-            }
-            currentButton = button;
-            const currentIcon = currentButton.querySelector('i');
-            if (isPlaying) {
-                currentIcon.classList.remove('fa-play');
-                currentIcon.classList.add('fa-pause');
-            } else {
-                currentIcon.classList.remove('fa-pause');
-                currentIcon.classList.add('fa-play');
-            }
-        }
-
-        function updateProgress() {
-            audioPlayer.addEventListener('timeupdate', () => {
-                if (!progressBar.dragging) {
-                    const currentTime = audioPlayer.currentTime;
-                    const duration = audioPlayer.duration || 0;
-                    const progress = (currentTime / duration) * 100 || 0;
-                    progressBar.value = progress;
-
-                    const currentMins = Math.floor(currentTime / 60);
-                    const currentSecs = Math.floor(currentTime % 60).toString().padStart(2, '0');
-                    const totalMins = Math.floor(duration / 60);
-                    const totalSecs = Math.floor(duration % 60).toString().padStart(2, '0');
-                    timeDisplay.textContent = `${currentMins}:${currentSecs} / ${totalMins}:${totalSecs}`;
-                }
-            });
-
-            audioPlayer.addEventListener('loadedmetadata', () => {
-                progressBar.max = 100;
-            });
-
-            audioPlayer.addEventListener('ended', () => {
-                updateButtonState(currentButton, false);
-                progressBar.value = 0;
-            });
-        }
-
-        progressBar.addEventListener('input', () => {
-            const duration = audioPlayer.duration || 0;
-            const newTime = (progressBar.value / 100) * duration;
-            audioPlayer.currentTime = newTime;
         });
-
-        progressBar.addEventListener('mousedown', () => {
-            progressBar.dragging = true;
-        });
-
-        progressBar.addEventListener('mouseup', () => {
-            progressBar.dragging = false;
-        });
-
-        progressBar.addEventListener('touchstart', () => {
-            progressBar.dragging = true;
-        });
-
-        progressBar.addEventListener('touchend', () => {
-            progressBar.dragging = false;
-        });
+        
     </script>
 
 </body>
