@@ -20,26 +20,11 @@
             padding: 10px;
             text-align: center;
         }
-        /* input[type="range"] {
-            width: 150px;
-            margin-top: 10px;
-        }
-        button {
-            margin: 5px;
-            padding: 5px 10px;
-            font-size: 16px;
-        }
-        #timeDisplay {
-            margin-left: 5px;
-        }
-        .icon {
-            margin-right: 5px; 圖示與文字間距
+        
+        /* audio {
+            width: 300px;
+            height: 50px;
         } */
-        audio {
-            width: 200px; /* 設定播放器的寬度 */
-            height: 50px; /* 設定播放器的高度 */
-            margin: 10px 0; /* 增加間距 */
-        }
     </style>
 </head>
 
@@ -50,7 +35,7 @@
         <!-- Title -->
         <div class="text-wrap" width="200px">
             <font face="helvetica , ariel, &#39;sans serif&#39;" size="6">
-                <b>SIMBA-LDM:</br>LOW-COST TRAINING FOR TEXT-TO-MUSIC VIA SIMBA AND LATENT DIFFUSION</b><br><br>
+                <br><b>SIMBA-LDM:</br>LOW-COST TRAINING FOR TEXT-TO-MUSIC VIA SIMBA AND LATENT DIFFUSION</b><br><br>
             </font>
         </div>
 
@@ -250,14 +235,17 @@
                 <!-- Exp 1 (SiMBA vs Transformer) -->
                 <div class="section text-justify">
                     <!-- Description -->
-                    <h2>SSM vs. Transformer-based LM (Cherry-picked)</h2>
-                    This is the exp1
+                    <h2>LM comparison: Prefix SiMBA vs. Cross Transformer (Random Sampled)</h2>
+                    This section shows the generated audio by Prefix SiMBA and Cross Transformer at differnt training steps. 
+                    As mentioned in the section 5.1 in the paper, this section demonstrating the reconstructed 
+                    audio by only the first-layer DAC tokens to compare the performance between Prefix SiMBA and Cross Transformer.
+                    All the audio samples here are randomly selected.
                     <!-- Table -->
                     <table class="table table-sm text-center" style="vertical-align: middle;">
                         <tbody>
                             <tr>
                                 <td colspan="24">
-                                    <h5 class="text-center">Samples at 20k Training Steps</h5>
+                                    <h5 class="text-center">Sampled at 20k Training Steps</h5>
                                 </td>
                             </tr>
                                 <tr>
@@ -271,23 +259,384 @@
                                         <h5 class="text-center">Cross Transformer</h5>
                                     </td>
                                 </tr>
-                                <tr>
+                                    <tr>
+                                        <td colspan="8">
+                                            <p>The low quality recording features a Champeta song that consists of wooden percussive elements, electric guitar solo melody, funky electric rhythm guitar chords, shimmering shakers and hi hats and smooth bass guitar. It sounds funky and like something you would dance to in a bar.
+                                            </p>
+                                        </td>
+                                        <td colspan="8">
+                                            <audio controls>
+                                                <source src="exp1/20k/simba/0.wav" type="audio/mp3">
+                                            Your browser does not support the audio element.
+                                            </audio>
+                                        </td>
+                                        <td colspan="8">
+                                            <audio controls>
+                                                <source src="exp1/20k/transformer/0.wav" type="audio/mp3">
+                                            Your browser does not support the audio element.
+                                            </audio>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="8">
+                                            <p>Someone is playing a song through speakers. The song contains digital drums with strong loud rhythmic hits rising up in pitch and a kick on every beat. A guitar-like sound is playing an arpeggio melody with other string instruments. This is an amateur recording and of poor sound-quality. This song may be playing at a rave party.
+                                            </p>
+                                        </td>
+                                        <td colspan="8">
+                                            <audio controls>
+                                                <source src="exp1/20k/simba/1.wav" type="audio/mp3">
+                                            Your browser does not support the audio element.
+                                            </audio>
+                                        </td>
+                                        <td colspan="8">
+                                            <audio controls>
+                                                <source src="exp1/20k/transformer/1.wav" type="audio/mp3">
+                                            Your browser does not support the audio element.
+                                            </audio>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="8">
+                                            <p>This live recording features an instrumental song. This Regional Mexican song features an accordion playing the main melody. This is accompanied by an acoustic guitar strumming chords. A double bass plays the bass notes. A tambourine acts as the percussion. This song is in an upbeat mood. The song can be played at the entrance of a carnival.
+                                            </p>
+                                        </td>
+                                        <td colspan="8">
+                                            <audio controls>
+                                                <source src="exp1/20k/simba/2.wav" type="audio/mp3">
+                                            Your browser does not support the audio element.
+                                            </audio>
+                                        </td>
+                                        <td colspan="8">
+                                            <audio controls>
+                                                <source src="exp1/20k/transformer/2.wav" type="audio/mp3">
+                                            Your browser does not support the audio element.
+                                            </audio>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="8">
+                                            <p>The low quality recording features a manically played piano melody over punchy kick and snare hits, followed by uptempo hi hats and shimmering open hats. It sounds aggressive, mani and thin, as it lacks low frequencies.
+                                            </p>
+                                        </td>
+                                        <td colspan="8">
+                                            <audio controls>
+                                                <source src="exp1/20k/simba/3.wav" type="audio/mp3">
+                                            Your browser does not support the audio element.
+                                            </audio>
+                                        </td>
+                                        <td colspan="8">
+                                            <audio controls>
+                                                <source src="exp1/20k/transformer/3.wav" type="audio/mp3">
+                                            Your browser does not support the audio element.
+                                            </audio>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="8">
+                                            <p>This song is an instrumental. The tempo is medium with a melodious keyboard harmony, rhythmic guitar accompaniment, punchy drumming, subtle bass line, synth arrangement and tambourine beats. The music is soft, mellow, ambient, pleasant, uplifting, and mellifluous.
+                                            </p>
+                                        </td>
+                                        <td colspan="8">
+                                            <audio controls>
+                                                <source src="exp1/20k/simba/4.wav" type="audio/mp3">
+                                            Your browser does not support the audio element.
+                                            </audio>
+                                        </td>
+                                        <td colspan="8">
+                                            <audio controls>
+                                                <source src="exp1/20k/transformer/4.wav" type="audio/mp3">
+                                            Your browser does not support the audio element.
+                                            </audio>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="8">
+                                            <p>Someone is playing a track from speakers. This song contains a strong e-bass playing a funky bassline along with a funky drum groove. Then a piano comes in playing a jazzy melody in one scale accompanied by a synth brass sound swelling into existence and playing a short rise before leaving again. This is an amateur recording but of decent audio-quality. This song may be playing in a jazzbar.
+                                            </p>
+                                        </td>
+                                        <td colspan="8">
+                                            <audio controls>
+                                                <source src="exp1/20k/simba/5.wav" type="audio/mp3">
+                                            Your browser does not support the audio element.
+                                            </audio>
+                                        </td>
+                                        <td colspan="8">
+                                            <audio controls>
+                                                <source src="exp1/20k/transformer/5.wav" type="audio/mp3">
+                                            Your browser does not support the audio element.
+                                            </audio>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="8">
+                                            <p>The song is an instrumental. The song is medium tempo with a guitar playing solo, steady drum rhythm, groovy bass line and steady bass line. The song is funky and groovy in nature. The song is an ad jingle.
+                                            </p>
+                                        </td>
+                                        <td colspan="8">
+                                            <audio controls>
+                                                <source src="exp1/20k/simba/6.wav" type="audio/mp3">
+                                            Your browser does not support the audio element.
+                                            </audio>
+                                        </td>
+                                        <td colspan="8">
+                                            <audio controls>
+                                                <source src="exp1/20k/transformer/6.wav" type="audio/mp3">
+                                            Your browser does not support the audio element.
+                                            </audio>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="8">
+                                            <p>This is a thrilling orchestral piece that feels epic, suspenseful and intense. There are string instruments like violins and cellos, and timpani for percussion. There is one over-bearing vibrational sound that overwhelms the whole arrangement - it is played once and rings for three seconds.
+                                            </p>
+                                        </td>
+                                        <td colspan="8">
+                                            <audio controls>
+                                                <source src="exp1/20k/simba/7.wav" type="audio/mp3">
+                                            Your browser does not support the audio element.
+                                            </audio>
+                                        </td>
+                                        <td colspan="8">
+                                            <audio controls>
+                                                <source src="exp1/20k/transformer/7.wav" type="audio/mp3">
+                                            Your browser does not support the audio element.
+                                            </audio>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="8">
+                                            <p>An acoustic drum is playing a faster groove along with a bassline and a harmonica playing a chord on the offbeat and in a lower key. A e-guitar is playing a melody in the mid range. There are some background noises that remind me of someone brushing his/her teeth. This song may be playing live at a bar.
+                                            </p>
+                                        </td>
+                                        <td colspan="8">
+                                            <audio controls>
+                                                <source src="exp1/20k/simba/8.wav" type="audio/mp3">
+                                            Your browser does not support the audio element.
+                                            </audio>
+                                        </td>
+                                        <td colspan="8">
+                                            <audio controls>
+                                                <source src="exp1/20k/transformer/8.wav" type="audio/mp3">
+                                            Your browser does not support the audio element.
+                                            </audio>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="8">
+                                            <p>This music is an Electronic dance instrumental. The tempo is medium fast with punchy drum beats and groovy electronic arrangements.The music is buoyant, energetic, electric, pulsating, youthful and vigorous. The thumpy, rhythmic bass and drumming gives it a groovy dance beat.
+                                            </p>
+                                        </td>
+                                        <td colspan="8">
+                                            <audio controls>
+                                                <source src="exp1/20k/simba/9.wav" type="audio/mp3">
+                                            Your browser does not support the audio element.
+                                            </audio>
+                                        </td>
+                                        <td colspan="8">
+                                            <audio controls>
+                                                <source src="exp1/20k/transformer/9.wav" type="audio/mp3">
+                                            Your browser does not support the audio element.
+                                            </audio>
+                                        </td>
+                                    </tr>
                             
-                            <td colspan="24">
-                                <h5 class="text-center">Samples at 85k Training Steps</h5>
-                            </td>
+                            <tr>
+                                <td colspan="24">
+                                    <h5 class="text-center">Sampled at 20k Training Steps</h5>
+                                </td>
+                            </tr>
+                                <tr>
+                                    <td colspan="8">
+                                        <h5 class="text-center">Text Prompt</h5>
+                                    </td>
+                                    <td colspan="8">
+                                        <h5 class="text-center">Prefix SiMBA</h5>
+                                    </td>
+                                    <td colspan="8">
+                                        <h5 class="text-center">Cross Transformer</h5>
+                                    </td>
                                 </tr>
                                     <tr>
                                         <td colspan="8">
-                                            <h5 class="text-center">Text Prompt</h5>
+                                            <p>The low quality recording features a Champeta song that consists of wooden percussive elements, electric guitar solo melody, funky electric rhythm guitar chords, shimmering shakers and hi hats and smooth bass guitar. It sounds funky and like something you would dance to in a bar.
+                                            </p>
                                         </td>
                                         <td colspan="8">
-                                            <h5 class="text-center">Prefix SiMBA</h5>
+                                            <audio controls>
+                                                <source src="exp1/85k/simba/0.wav" type="audio/mp3">
+                                            Your browser does not support the audio element.
+                                            </audio>
                                         </td>
                                         <td colspan="8">
-                                            <h5 class="text-center">Cross Transformer</h5>
+                                            <audio controls>
+                                                <source src="exp1/85k/transformer/0.wav" type="audio/mp3">
+                                            Your browser does not support the audio element.
+                                            </audio>
                                         </td>
                                     </tr>
+                                    <tr>
+                                        <td colspan="8">
+                                            <p>Someone is playing a song through speakers. The song contains digital drums with strong loud rhythmic hits rising up in pitch and a kick on every beat. A guitar-like sound is playing an arpeggio melody with other string instruments. This is an amateur recording and of poor sound-quality. This song may be playing at a rave party.
+                                            </p>
+                                        </td>
+                                        <td colspan="8">
+                                            <audio controls>
+                                                <source src="exp1/85k/simba/1.wav" type="audio/mp3">
+                                            Your browser does not support the audio element.
+                                            </audio>
+                                        </td>
+                                        <td colspan="8">
+                                            <audio controls>
+                                                <source src="exp1/85k/transformer/1.wav" type="audio/mp3">
+                                            Your browser does not support the audio element.
+                                            </audio>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="8">
+                                            <p>This live recording features an instrumental song. This Regional Mexican song features an accordion playing the main melody. This is accompanied by an acoustic guitar strumming chords. A double bass plays the bass notes. A tambourine acts as the percussion. This song is in an upbeat mood. The song can be played at the entrance of a carnival.
+                                            </p>
+                                        </td>
+                                        <td colspan="8">
+                                            <audio controls>
+                                                <source src="exp1/85k/simba/2.wav" type="audio/mp3">
+                                            Your browser does not support the audio element.
+                                            </audio>
+                                        </td>
+                                        <td colspan="8">
+                                            <audio controls>
+                                                <source src="exp1/85k/transformer/2.wav" type="audio/mp3">
+                                            Your browser does not support the audio element.
+                                            </audio>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="8">
+                                            <p>The low quality recording features a manically played piano melody over punchy kick and snare hits, followed by uptempo hi hats and shimmering open hats. It sounds aggressive, mani and thin, as it lacks low frequencies.
+                                            </p>
+                                        </td>
+                                        <td colspan="8">
+                                            <audio controls>
+                                                <source src="exp1/85k/simba/3.wav" type="audio/mp3">
+                                            Your browser does not support the audio element.
+                                            </audio>
+                                        </td>
+                                        <td colspan="8">
+                                            <audio controls>
+                                                <source src="exp1/85k/transformer/3.wav" type="audio/mp3">
+                                            Your browser does not support the audio element.
+                                            </audio>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="8">
+                                            <p>This song is an instrumental. The tempo is medium with a melodious keyboard harmony, rhythmic guitar accompaniment, punchy drumming, subtle bass line, synth arrangement and tambourine beats. The music is soft, mellow, ambient, pleasant, uplifting, and mellifluous.
+                                            </p>
+                                        </td>
+                                        <td colspan="8">
+                                            <audio controls>
+                                                <source src="exp1/85k/simba/4.wav" type="audio/mp3">
+                                            Your browser does not support the audio element.
+                                            </audio>
+                                        </td>
+                                        <td colspan="8">
+                                            <audio controls>
+                                                <source src="exp1/85k/transformer/4.wav" type="audio/mp3">
+                                            Your browser does not support the audio element.
+                                            </audio>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="8">
+                                            <p>Someone is playing a track from speakers. This song contains a strong e-bass playing a funky bassline along with a funky drum groove. Then a piano comes in playing a jazzy melody in one scale accompanied by a synth brass sound swelling into existence and playing a short rise before leaving again. This is an amateur recording but of decent audio-quality. This song may be playing in a jazzbar.
+                                            </p>
+                                        </td>
+                                        <td colspan="8">
+                                            <audio controls>
+                                                <source src="exp1/85k/simba/5.wav" type="audio/mp3">
+                                            Your browser does not support the audio element.
+                                            </audio>
+                                        </td>
+                                        <td colspan="8">
+                                            <audio controls>
+                                                <source src="exp1/85k/transformer/5.wav" type="audio/mp3">
+                                            Your browser does not support the audio element.
+                                            </audio>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="8">
+                                            <p>The song is an instrumental. The song is medium tempo with a guitar playing solo, steady drum rhythm, groovy bass line and steady bass line. The song is funky and groovy in nature. The song is an ad jingle.
+                                            </p>
+                                        </td>
+                                        <td colspan="8">
+                                            <audio controls>
+                                                <source src="exp1/85k/simba/6.wav" type="audio/mp3">
+                                            Your browser does not support the audio element.
+                                            </audio>
+                                        </td>
+                                        <td colspan="8">
+                                            <audio controls>
+                                                <source src="exp1/85k/transformer/6.wav" type="audio/mp3">
+                                            Your browser does not support the audio element.
+                                            </audio>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="8">
+                                            <p>This is a thrilling orchestral piece that feels epic, suspenseful and intense. There are string instruments like violins and cellos, and timpani for percussion. There is one over-bearing vibrational sound that overwhelms the whole arrangement - it is played once and rings for three seconds.
+                                            </p>
+                                        </td>
+                                        <td colspan="8">
+                                            <audio controls>
+                                                <source src="exp1/85k/simba/7.wav" type="audio/mp3">
+                                            Your browser does not support the audio element.
+                                            </audio>
+                                        </td>
+                                        <td colspan="8">
+                                            <audio controls>
+                                                <source src="exp1/85k/transformer/7.wav" type="audio/mp3">
+                                            Your browser does not support the audio element.
+                                            </audio>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="8">
+                                            <p>An acoustic drum is playing a faster groove along with a bassline and a harmonica playing a chord on the offbeat and in a lower key. A e-guitar is playing a melody in the mid range. There are some background noises that remind me of someone brushing his/her teeth. This song may be playing live at a bar.
+                                            </p>
+                                        </td>
+                                        <td colspan="8">
+                                            <audio controls>
+                                                <source src="exp1/85k/simba/8.wav" type="audio/mp3">
+                                            Your browser does not support the audio element.
+                                            </audio>
+                                        </td>
+                                        <td colspan="8">
+                                            <audio controls>
+                                                <source src="exp1/85k/transformer/8.wav" type="audio/mp3">
+                                            Your browser does not support the audio element.
+                                            </audio>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="8">
+                                            <p>This music is an Electronic dance instrumental. The tempo is medium fast with punchy drum beats and groovy electronic arrangements.The music is buoyant, energetic, electric, pulsating, youthful and vigorous. The thumpy, rhythmic bass and drumming gives it a groovy dance beat.
+                                            </p>
+                                        </td>
+                                        <td colspan="8">
+                                            <audio controls>
+                                                <source src="exp1/85k/simba/9.wav" type="audio/mp3">
+                                            Your browser does not support the audio element.
+                                            </audio>
+                                        </td>
+                                        <td colspan="8">
+                                            <audio controls>
+                                                <source src="exp1/85k/transformer/9.wav" type="audio/mp3">
+                                            Your browser does not support the audio element.
+                                            </audio>
+                                        </td>
+                                    </tr>
+                            
                         </tbody>
                     </table>
                 </div>
@@ -325,26 +674,6 @@
             });
         });
 
-        // Play Audio
-        // let currentAudio = null; // 追蹤當前播放的音檔
-
-        // function playAudio(audioId) {
-        //     // 取得所有 audio 元素
-        //     const audios = document.getElementsByTagName('audio');
-            
-        //     // 暫停並重置所有正在播放的音檔
-        //     for (let audio of audios) {
-        //         if (audio !== document.getElementById(audioId)) {
-        //             audio.pause();
-        //             audio.currentTime = 0; // 可選：將播放進度重置到開始
-        //         }
-        //     }
-
-        //     // 播放新的音檔
-        //     const newAudio = document.getElementById(audioId);
-        //     newAudio.play();
-        //     currentAudio = newAudio;
-        // }
         const audioElements = document.querySelectorAll('audio');
 
         // 為每個 audio 元素添加播放事件監聽器
@@ -360,6 +689,7 @@
             });
         });
         
+
     </script>
 
 </body>
